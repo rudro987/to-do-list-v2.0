@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs') %>
+
+<div class="flex justify-center text-2xl font-bold mb-8"><%= today %></div>
+<div class="navbar p-0 justify-center">
+    <div class="mb-8">
+      <ul class="menu menu-horizontal p-0 text-2xl font-semibold text-white gap-10">
+        <li class="bg-slate-500 rounded-lg  px-5 py-3"><a href="/">Daily</a></li>
+        <li class="bg-slate-500 rounded-lg px-5 py-3"><a href="/Work">Work</a></li>
+      </ul>
+    </div>
+    
+  </div>
+  <div>
+    
+  </div>
+
+<div class="flex pb-5 lg:w-[600px] mx-auto">
+        <ul class="flex flex-col gap-2">
+            <% items.forEach((item) => { %>
+                <li class="flex mb-5 p-5 w-[320px] md:w-[575px] lg:w-[600px] rounded-lg border-slate-500 border-[1px] text-xl font-medium">
+                    <form action="/delete" method="post">
+                        <input type="checkbox" name="checkbox" value="<%= item._id %>" class="checkbox" onchange="this.form.submit()"/> 
+                        <p class="inline-flex ml-3 relative top-[-4px]"><%= item.name %></p>
+                        <input type="hidden" name="hidden" value="<%= listTitle %>">
+                    </form>
+                </li>
+           <% }); %> 
+        </ul>
+    </div>
+    
+    <div class="lg:w-[600px] mx-auto">
+        <form action="/" method="POST" class="flex flex-col lg:flex-row gap-5 mb-10 justify-center">
+            <input type="text" name="newTask" placeholder="Add New Task" class="lg:w-[400px] rounded-lg border-2 border-slate-800
+            p-5">
+            <button type="submit" name="list" value="<%= listTitle %>" class="mx-auto px-5 py-5 lg:px-10 lg:py-5 rounded-lg cursor-pointer text-white font-medium text-2xl bg-slate-500">Add Task</button>
+          </form>
+    </div>
+
+<%- include('partials/footer.ejs') %>
