@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { connectDb } from "./src/db/config.js";
+import mongoose from "mongoose";
 import router from './src/routes/index.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 connectDb().catch(err => console.log(err));
+async function connectDb() {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("Successfully connected to the database!")
+   }
 
 app.listen(PORT, (req,res) => {
     console.log(`Server running on port ${PORT}.`);
